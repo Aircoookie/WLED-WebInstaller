@@ -4,13 +4,13 @@
     {
       "chipFamily": "ESP32",
       "parts": [
-        { "filename": "esp32_bootloader_v2.bin", "offset": 0 },
-        { "filename": "WLED_2106070_ESP32.bin", "offset": 65536 }
+        { "path": "esp32_bootloader_v2.bin", "offset": 0 },
+        { "path": "WLED_2106070_ESP32.bin", "offset": 65536 }
       ]
     },
     {
       "chipFamily": "ESP8266",
-      "parts": [{ "filename": "WLED_2106030_ESP8266.bin", "offset": 0 }]
+      "parts": [{ "path": "WLED_2106030_ESP8266.bin", "offset": 0 }]
     }
   ]
 }
