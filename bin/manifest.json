@@ -1,0 +1,16 @@
+{
+  "name": "WLED",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "filename": "esp32_bootloader_v2.bin", "offset": 0 },
+        { "filename": "WLED_2106070_ESP32.bin", "offset": 65536 }
+      ]
+    },
+    {
+      "chipFamily": "ESP8266",
+      "parts": [{ "filename": "WLED_0.12.0_ESP8266.bin", "offset": 0 }]
+    }
+  ]
+}
