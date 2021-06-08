@@ -10,7 +10,7 @@
     },
     {
       "chipFamily": "ESP8266",
-      "parts": [{ "filename": "WLED_0.12.0_ESP8266.bin", "offset": 0 }]
+      "parts": [{ "filename": "WLED_2106030_ESP8266.bin", "offset": 0 }]
     }
   ]
 }

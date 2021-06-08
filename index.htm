@@ -5,9 +5,13 @@
 	<meta content='width=device-width' name='viewport'>
   <meta name="theme-color" content="#222222">
 	<title>WLED Web Flasher</title>
-  <script
+  <!--<script
     type="module"
     src="installer/install-button.js"
+  ></script>-->
+  <script
+  type="module"
+  src="https://unpkg.com/esp-web-tools@2.0.1/dist/web/install-button.js?module"
   ></script>
 	<style>
 		body {
@@ -18,13 +22,12 @@
 			color: #fff;
 		}
     
-    button {
+    .btn {
       outline: none;
       cursor: pointer;
       padding: 8px;
       margin: 10px;
       width: 230px;
-      text-transform: uppercase;
       font-family: Verdana, Helvetica, sans-serif;
       font-size: 19px;
       background-color: #333;
@@ -32,9 +35,13 @@
       border: 0px solid white;
       border-radius: 25px;
     }
+    
+    esp-web-flash-log {
+      margin: 16px auto;
+    }
 
     img {
-      width: 999px;
+      width: 800px;
       max-width: 85%;
       image-rendering: pixelated;
       image-rendering: crisp-edges;
@@ -62,9 +69,12 @@
 <h2>Welcome to the WLED Web installer! (alpha)</h2>
 <esp-web-install-button
   manifest="bin/manifest.json"
-></esp-web-install-button>
-<br>
-<br>
+>
+  <button class="btn" slot="activate">Install</button>
+  <span slot="unsupported">Sorry, your browser is not supported!<br>
+    Please try on Desktop Chrome or Edge.</span>
+</esp-web-install-button>
+<br><br>
 Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a>
 </body>
 </html>
