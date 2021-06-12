@@ -187,6 +187,12 @@ Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ES
 
 <script>
   function handleStateEvent(ev) {
+    //hide button and show log
+    if (s == "initializing") {
+      document.getElementsByClassName('inst-button')[0].style.display = "none";
+      document.getElementsByClassName('log')[0].style.display = "block";
+    }
+    
     var obj = ev.detail;
     console.log(obj);
     var s = obj.state;
