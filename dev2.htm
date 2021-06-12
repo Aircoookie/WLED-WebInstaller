@@ -81,7 +81,6 @@
     
     .container {
       width: 80%;
-      height: 98px;
       max-width: 510px;
       margin: auto;
       border-radius: 5px;
@@ -96,6 +95,10 @@
 
     .log {
       padding: 6px 20px 8px 20px;
+      display: none;
+    }
+    
+    #reset-button {
       display: none;
     }
 
@@ -181,10 +184,10 @@
   <span class="info-bot" id="env">&nbsp;</span>
   <span class="info-bot" id="extra">&nbsp;</span>
 </div>
-<br>
-<button class="btn" id="reset-button" onclick="reset()">&#8635; Start over</button>
-<br><br>
-Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a>
+<div id="reset-button">
+  <br><button class="btn" onclick="reset()">&#8635; Start over</button><br>
+</div>
+<br>Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a>
 
 <script>
   function handleStateEvent(ev) {
@@ -202,18 +205,6 @@ Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ES
       document.getElementById('bar-inner').style.transform = `translate(-${(100-i)/2}%,-10%)`
       document.getElementById('bar-inner').style.background = `linear-gradient(to right, rgba(255,255,255,${a}) 50%, #444 50%)`;
     } else {
-      //hide button and show log
-      if (s == "initializing") {
-        document.getElementsByClassName('inst-button')[0].style.display = "none";
-        document.getElementsByClassName('log')[0].style.display = "block";
-      } else if (s == "finished") {
-        document.getElementById('extra').textContent = "Please unplug/reset your board";
-        document.getElementById('reset-button').style.display = "block";
-      } else if (s == "error") {
-        document.getElementById('state').textContent = "Error!";
-        document.getElementById('extra').textContent = obj.message;
-        document.getElementById('reset-button').style.display = "block";
-      }
       document.getElementById('state').textContent = obj.message;
       
       //env
@@ -227,6 +218,20 @@ Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ES
       if (chipFamily) env += obj.chipFamily;
       if (env == "") env = "&nbsp;";
       document.getElementById('env').innerHTML = env;
+      
+      //hide button and show log
+      if (s == "initializing") {
+        document.getElementsByClassName('inst-button')[0].style.display = "none";
+        document.getElementsByClassName('log')[0].style.display = "block";
+      } else if (s == "finished") {
+        document.getElementById('extra').textContent = "Please unplug/reset your board";
+        document.getElementById('reset-button').style.display = "block";
+      } else if (s == "error") {
+        document.getElementById('state').textContent = "Error!";
+        document.getElementById('extra').textContent = obj.message;
+        document.getElementById('reset-button').style.display = "block";
+        if (!obj.chipFamily) document.getElementById('env').textContent = "";
+      }
     }
   }
   
