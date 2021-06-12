@@ -187,12 +187,6 @@ Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ES
 
 <script>
   function handleStateEvent(ev) {
-    //hide button and show log
-    if (s == "initializing") {
-      document.getElementsByClassName('inst-button')[0].style.display = "none";
-      document.getElementsByClassName('log')[0].style.display = "block";
-    }
-    
     var obj = ev.detail;
     console.log(obj);
     var s = obj.state;
@@ -207,6 +201,11 @@ Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ES
       document.getElementById('bar-inner').style.transform = `translate(-${(100-i)/2}%,-10%)`
       document.getElementById('bar-inner').style.background = `linear-gradient(to right, rgba(255,255,255,${a}) 50%, #444 50%)`;
     } else {
+      //hide button and show log
+      if (s == "initializing") {
+        document.getElementsByClassName('inst-button')[0].style.display = "none";
+        document.getElementsByClassName('log')[0].style.display = "block";
+      }
       document.getElementById('state').textContent = obj.message;
     }
     
