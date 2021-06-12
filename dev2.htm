@@ -38,10 +38,6 @@
       border-radius: 25px;
     }
     
-    esp-web-flash-log {
-      margin: 16px auto 0 auto;
-    }
-
     img {
       width: 800px;
       max-width: 85%;
@@ -78,6 +74,76 @@
     li {
       margin: 5px;
     }
+    
+    .clickable {
+      cursor: pointer;
+    }
+    
+    .container {
+      width: 80%;
+      height: 98px;
+      max-width: 510px;
+      margin: auto;
+      border-radius: 5px;
+      box-sizing: border-box;
+      background-color: #222;
+      overflow: hidden;
+    }
+    
+    .inst-button {
+      padding: 5px 0;
+    }
+
+    .log {
+      padding: 6px 20px 8px 20px;
+      display: none;
+    }
+
+    .info-top {
+      font-size: 32px;
+      display: inline-block;
+    }
+    
+    .info-bot {
+      display: inline-block;
+    }
+
+    #state {
+      float: left;
+    }
+
+    #progress {
+      float: right;
+    }
+
+    #bar {
+      height: 12px;
+      width: 100%;
+      margin: 26px 0 8px 0;
+      border-radius: 25px;
+      background: linear-gradient(to right, red, orange , yellow, #0a0, cyan, #09f);
+      overflow: hidden;
+      position: relative;
+    }
+
+    #bar-inner {
+      transform: translate(-50%,-10%);
+      width: 200%;
+      height: 120%;
+      background: linear-gradient(to right, #fff 50%, #444 50%);
+      transition: transform 1s;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    #env {
+      float: left;
+    }
+
+    #extra {
+      float: right;
+    }
 	</style>
 </head>
 <body>
@@ -93,25 +159,66 @@
   <li>Unplug your ESP or hit the reset button to boot into WLED!</li>
 </ol><br><br>
 
-<esp-web-install-button
-  id="inst"
-  manifest="bin/manifest.json"
-  hide-progress
-  erase-first
->
-  <button class="btn" slot="activate">Install</button>
-  <span slot="unsupported">Sorry, your browser is not yet supported!<br>
-    Please try on Desktop Chrome or Edge.</span>
-</esp-web-install-button>
 <br><br>
-<input type="checkbox" id="erase" name="erase" onchange="toggleErase()" checked>
-<label for="erase"> Clean install (deletes presets and settings)</label><br>
-<br><br>
+<div class="container inst-button">
+  <esp-web-install-button
+    id="inst"
+    manifest="bin/manifest.json"
+    hide-progress
+    erase-first
+  >
+    <button class="btn" slot="activate">Install</button>
+    <span slot="unsupported">Sorry, your browser is not yet supported!<br>
+      Please try on Desktop Chrome or Edge.</span>
+  </esp-web-install-button>
+  <input type="checkbox" id="erase" name="erase" onchange="toggleErase()" checked>
+  <label for="erase"> Clean install (deletes presets and settings)</label><br>
+</div>
+
+<div class="container log">
+  <span class="info-top" id="state">Initializing...</span>
+  <span class="info-top" id="progress"></span><br>
+  <div id="bar"><div id="bar-inner"></div></div>
+  <span class="info-bot" id="env">&nbsp;</span>
+  <span class="info-bot" id="extra">&nbsp;</span>
+</div>
+<br>
 Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a>
 
 <script>
   function handleStateEvent(ev) {
-    console.log(ev.detail);
+    var obj = ev.details;
+    console.log(obj);
+    var s = obj.state;
+    if (s == "writing") {
+      //progress
+      var i = obj.details.percentage;
+      document.getElementById('state').textContent = "Writing...";
+      document.getElementById('progress').textContent = i + "%";
+      document.getElementById('extra').textContent = `${(obj.details.bytesWritten/1000).toFixed(1)} / ${(obj.details.bytesTotal/1000).toFixed(1)}k`
+      //bar
+      var a = (i < 50) ? 1.0 : 1.0 - (i-50)*0.02;
+      document.getElementById('bar-inner').style.transform = `translate(-${(100-i)/2}%,-10%)`
+      document.getElementById('bar-inner').style.background = `linear-gradient(to right, rgba(255,255,255,${a}) 50%, #444 50%)`;
+    } else {
+      document.getElementById('state').textContent = obj.message;
+    }
+    
+    //env
+    var manifestName = obj.manifest?.name;
+    var chipFamily = obj.chipFamily;
+    var env = "";
+    if (manifestName) {
+      env = obj.manifest.name;
+      if (chipFamily) env += " - "
+    }
+    if (chipFamily) env += obj.chipFamily;
+    if (env == "") env = "&nbsp;";
+    document.getElementById('env').textContent = env;
+    
+    //progress
+    
+    
   }
   
   const espWebInstallButton = document.querySelector("esp-web-install-button");
