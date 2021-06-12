@@ -159,7 +159,6 @@
   <li>Unplug your ESP or hit the reset button to boot into WLED!</li>
 </ol><br><br>
 
-<br><br>
 <div class="container inst-button">
   <esp-web-install-button
     id="inst"
@@ -183,6 +182,8 @@
   <span class="info-bot" id="extra">&nbsp;</span>
 </div>
 <br>
+<button class="btn" id="reset-button" onclick="reset()">&#8635; Start over</button>
+<br><br>
 Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a>
 
 <script>
@@ -205,25 +206,28 @@ Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ES
       if (s == "initializing") {
         document.getElementsByClassName('inst-button')[0].style.display = "none";
         document.getElementsByClassName('log')[0].style.display = "block";
+      } else if (s == "finished") {
+        document.getElementById('extra').textContent = "Please unplug/reset your board";
+        document.getElementById('reset-button').style.display = "block";
+      } else if (s == "error") {
+        document.getElementById('state').textContent = "Error!";
+        document.getElementById('extra').textContent = obj.message;
+        document.getElementById('reset-button').style.display = "block";
       }
       document.getElementById('state').textContent = obj.message;
+      
+      //env
+      var manifestName = obj.manifest?.name;
+      var chipFamily = obj.chipFamily;
+      var env = "";
+      if (manifestName) {
+        env = obj.manifest.name;
+        if (chipFamily) env += " - "
+      }
+      if (chipFamily) env += obj.chipFamily;
+      if (env == "") env = "&nbsp;";
+      document.getElementById('env').innerHTML = env;
     }
-    
-    //env
-    var manifestName = obj.manifest?.name;
-    var chipFamily = obj.chipFamily;
-    var env = "";
-    if (manifestName) {
-      env = obj.manifest.name;
-      if (chipFamily) env += " - "
-    }
-    if (chipFamily) env += obj.chipFamily;
-    if (env == "") env = "&nbsp;";
-    document.getElementById('env').textContent = env;
-    
-    //progress
-    
-    
   }
   
   const espWebInstallButton = document.querySelector("esp-web-install-button");
@@ -235,6 +239,16 @@ Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ES
     } else {
       document.getElementById('inst').removeAttribute('erase-first');
     }
+  }
+  
+  function reset() {
+    document.getElementById('bar-inner').style.transform = `translate(-50%,-10%)`
+    document.getElementById('bar-inner').style.background = `linear-gradient(to right, rgba(255,255,255,1.0) 50%, #444 50%)`;
+    document.getElementById('progress').textContent = "";
+    document.getElementById('extra').textContent = "";
+    document.getElementsByClassName('inst-button')[0].style.display = "block";
+    document.getElementsByClassName('log')[0].style.display = "none";
+    document.getElementById('reset-button').style.display = "none";
   }
 </script>
 </body>
