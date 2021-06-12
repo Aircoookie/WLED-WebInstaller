@@ -186,7 +186,9 @@
 Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a>
 
 <script>
-  function handleStateEvent(obj) {
+  function handleStateEvent(ev) {
+    var obj = ev.detail;
+    console.log(obj);
     var s = obj.state;
     if (s == "writing") {
       //progress
@@ -220,11 +222,7 @@ Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ES
   }
   
   const espWebInstallButton = document.querySelector("esp-web-install-button");
-  espWebInstallButton.addEventListener("state-changed", function (ev) {
-    console.log(ev.details);
-    handleStateEvent(ev.details);
-  });
-
+  espWebInstallButton.addEventListener("state-changed", handleStateEvent);
 
   function toggleErase() {
     if (document.getElementById('erase').checked) {
