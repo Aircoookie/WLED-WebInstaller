@@ -8,17 +8,8 @@
 	<title>Install WLED</title>
   <script
     type="module"
-    src="installer/install-button.js"
+    src="installer/install-button-300.js"
   ></script>
-  <script>
-    function toggleErase() {
-      if (document.getElementById('erase').checked) {
-        document.getElementById('inst').setAttribute('erase-first','');
-      } else {
-        document.getElementById('inst').removeAttribute('erase-first');
-      }
-    }
-  </script>
 	<style>
 		body {
 			font-family: Verdana, Helvetica, sans-serif;
@@ -47,10 +38,6 @@
       border-radius: 25px;
     }
     
-    esp-web-flash-log {
-      margin: 16px auto 0 auto;
-    }
-
     img {
       width: 800px;
       max-width: 85%;
@@ -71,6 +58,8 @@
     
     a {
       color: #fff;
+      cursor: pointer;
+      text-decoration: underline;
     }
     
     ol {
@@ -87,34 +76,207 @@
     li {
       margin: 5px;
     }
+    
+    .clickable {
+      cursor: pointer;
+    }
+    
+    .container {
+      width: 80%;
+      max-width: 510px;
+      margin: auto;
+      border-radius: 5px;
+      box-sizing: border-box;
+      background-color: #222;
+      overflow: hidden;
+    }
+    
+    .inst-button {
+      padding: 5px 0;
+    }
+
+    .log {
+      padding: 6px 20px 8px 20px;
+      display: none;
+    }
+    
+    #reset-button {
+      display: none;
+    }
+
+    .info-top {
+      font-size: 32px;
+      display: inline-block;
+    }
+    
+    .info-bot {
+      display: inline-block;
+    }
+
+    #state {
+      float: left;
+    }
+
+    #progress {
+      float: right;
+    }
+
+    #bar {
+      height: 12px;
+      width: 100%;
+      margin: 26px 0 8px 0;
+      border-radius: 25px;
+      background: linear-gradient(to right, red, orange , yellow, #0a0, cyan, #09f);
+      overflow: hidden;
+      position: relative;
+    }
+
+    #bar-inner {
+      transform: translate(-50%,-10%);
+      width: 200%;
+      height: 120%;
+      background: linear-gradient(to right, #fff 50%, #444 50%);
+      transition: transform 3s;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    #env {
+      float: left;
+    }
+
+    #extra {
+      float: right;
+    }
 	</style>
 </head>
-<body>
+<body onload="checkSupported()">
 <img alt="" src=" data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAAAjCAYAAACjOOUsAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsAAAA7AAWrWiQkAAATfSURBVGhD7ZlPaBVHHMdnS2Ox5iKYGIyYJwQlUTHG6kUwtSAIBsEiBopgKR5i68mbIPgEwZun0uYgouIlobQIKQheIsSLaBSaRFoEc3gtMa9HLaiH7X4n81tn583u/HkTaZ/7gR+zMzvv93bfZ3/777GSkpL/AJFo3Tg/H7OuPtGxY7CTsZnjkd/3lRTi/qMKgfGXt8TAO6KfT2TG1f7u6ROlyBXgI9HaQRW4+JR3ox92Z1p1XO3PLCUVORHHvFMSDDeJBuJvH4mlZdS+C3c7B+Ln3fvivw59w0MMOzP/FYvj75K4PMhDDDszdbM7rk1V4hcPD/MQw858MbEnPvJgf3x29hQPMdwUbqc2qRIhCBVGrQk+Lzm9mq6NkIe2t20N7xOf7NjK2w13rlltM+Sh7VvLu+/YOMib6NyMVR7IQ9u7qY33ibb2bbxd/9mvVnkgD217ZTXvE72fbuHtle1X3VxIuH1QOZ2mmG5yaH4yr0giBKryVCDTJBICG+SpJDJNIiFQlacCmSaREKjKU4FMX5F+p1NIk8OExTwbgeD1b7+zotOrlUBQm2FFp1cbgeDtyzlWdHq1EQie/fMH8z29Br0myiwdr7PkWpSGC2se/8IqtWnRa+y7Ur+Q3FF97/X7ZFjV/4B1Dz1Pw5WrlZ/Y7T330gjFikkE9Xo9jSJ0Vah+Ru7nVWNRFWq3Iacai6qQ9kfOl1eNuirUfZ7wrcbgEqkCOyc6MmEDVdyrXUd5ENR3rUiqwI6LnTx8oQp8M783E66cWjiWCarMZlnRSix5PwSTSBXY0WFXdf9HfK+FKlSBoX6rjEQ8XMutD3nn+1Yg5L755Mrzk0qkh2xMwLOYr0iXa6CJZu9KQ+N7LSSoAuma6EKRn1TiwaUn0bO3r/gy7v42/3nf+cEzxFGq5jD1TYTYJhAqj4pt3iI/mdMpTbQRqD4HhqhA9S40r28L3ZWmz4kUjlAFNvucSNBzomtF5vlJJVarVb53mMgHLMBRRBEaNWez3xFqW5vN0+znyQ/5Ahlho6OjcVdXl+jxiVmhHn8Gq+jendq+cpPRvUO1fuUmo3mHavvKTUb3DtX2lZtM3jtUWRqQ3TRMBrLMjMgVkAiB2waX/1nwgURygTv885BICOzrH+BjPpBICBzo38nHfJBFksDFxUU2NjaWjhMNAwSJ1Ems/n2RDQ0NsQNzn4sVjF1vvyGWGOvp6cmsk+frJLpWISFXo1cVElI1+lQhIVejTxUSajVCYp5AoB0k6AhIRQqJo7OnGRe87gIfxl9N1Y8nlpcTKpUK+/rlSdFLDghpft5fUTho0GJD5WW0RetUWi1PgwMNmbtTFdhXaRBowdj2H3kuVGQeyIkg5GVQtE6mFfPoPMgUSqSjgo4Gdqk/whfxpGeSaqJIxjFGsbCwkF2fBHJh3ZH5RpE2RxtBedJtkmi1PLSMdXwgh0KJAIkBEiLQV5MODw9ndiBvp/I2VIwZd5T4EPJQLvRNGCVSYgr0xSotIyMjYkkPfV7eUFNOHa2cx+X3BkaJAIkoxJAWCBwfHxc9PdhBbFzSRgixzHfahVbNA2x/b8JKoi0QaKpE7KC8cVjGmOha06p5fAgq0aYSS8ITROLk5GRUq9UyAt/XUVgSGNyl0kNrMyBHchCUeSwJejotKSkp+VBh7F9fIy7OdlOyMwAAAABJRU5ErkJggg==">
 <div class="main">
 <h2>Welcome to the WLED web installer!</h2>
 <div class="sub">beta</div>
 
+<div id="flasher">
+
 <ol>
   <li>Plug in your ESP to a USB port. We will install WLED <strike>0.13.0</strike> to it.</li>
-  <li>Hit "Install" and select the correct COM port.</li>
+  <li id="coms">Hit "Install" and select the correct COM port. <a onclick="showSerialHelp()">No device found?</a></li>
   <li>Wait a while, the process is a lot faster if you stay on this tab.</li>
   <li>Unplug your ESP or hit the reset button to boot into WLED!</li>
 </ol><br><br>
 
-<esp-web-install-button
-  id="inst"
-  manifest="bin/manifest.json"
-  erase-first
->
-  <button class="btn" slot="activate">Install</button>
-  <span slot="unsupported">Sorry, your browser is not yet supported!<br>
-    Please try on Desktop Chrome or Edge.</span>
-</esp-web-install-button>
-<br><br>
-<input type="checkbox" id="erase" name="erase" onchange="toggleErase()" checked>
-<label for="erase"> Clean install (deletes presets and settings)</label><br>
-<br><br>
-Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a>
+<div class="container inst-button">
+  <esp-web-install-button
+    id="inst"
+    manifest="bin/manifest.json"
+    hide-progress
+    erase-first
+  >
+    <button class="btn" slot="activate">Install</button>
+  </esp-web-install-button><br>
+  <input type="checkbox" id="erase" name="erase" onchange="toggleErase()" checked>
+  <label for="erase"> Clean install (deletes presets and settings)</label><br>
+</div>
+
+<div class="container log">
+  <span class="info-top" id="state">Initializing...</span>
+  <span class="info-top" id="progress"></span><br>
+  <div id="bar"><div id="bar-inner"></div></div>
+  <span class="info-bot" id="env">&nbsp;</span>
+  <span class="info-bot" id="extra">&nbsp;</span>
+</div>
+<div id="reset-button">
+  <br><button class="btn" onclick="reset()">&#8635; Start over</button><br>
+</div>
+
+</div>
+<br>Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a>
+
+<script>
+  function handleStateEvent(ev) {
+    var obj = ev.detail;
+    //console.log(obj);
+    var s = obj.state;
+    if (s == "writing") {
+      //progress
+      var i = obj.details.percentage;
+      document.getElementById('state').textContent = "Writing...";
+      document.getElementById('progress').textContent = i + "%";
+      document.getElementById('extra').textContent = `${(obj.details.bytesWritten/1000).toFixed(1)} / ${(obj.details.bytesTotal/1000).toFixed(1)} kB`
+      //bar
+      var a = (i < 50) ? 1.0 : 1.0 - (i-50)*0.02;
+      document.getElementById('bar-inner').style.transform = `translate(-${(100-i)/2}%,-10%)`
+      document.getElementById('bar-inner').style.background = `linear-gradient(to right, rgba(255,255,255,${a}) 50%, #444 50%)`;
+    } else {
+      document.getElementById('state').textContent = obj.message;
+      
+      //env
+      var manifestName = obj.manifest?.name;
+      var chipFamily = obj.chipFamily;
+      var env = "";
+      if (manifestName) {
+        env = obj.manifest.name;
+        if (chipFamily) env += " - "
+      }
+      if (chipFamily) env += obj.chipFamily;
+      if (env == "") env = "&nbsp;";
+      document.getElementById('env').innerHTML = env;
+      
+      //hide button and show log
+      if (s == "initializing") {
+        document.getElementsByClassName('inst-button')[0].style.display = "none";
+        document.getElementsByClassName('log')[0].style.display = "block";
+      } else if (s == "finished") {
+        document.getElementById('extra').textContent = "Please unplug/reset your board";
+        document.getElementById('reset-button').style.display = "block";
+      } else if (s == "error") {
+        document.getElementById('state').textContent = "Error!";
+        document.getElementById('extra').textContent = obj.message;
+        document.getElementById('reset-button').style.display = "block";
+        if (!obj.chipFamily) document.getElementById('env').textContent = "";
+      }
+    }
+  }
+  
+  const espWebInstallButton = document.querySelector("esp-web-install-button");
+  espWebInstallButton.addEventListener("state-changed", handleStateEvent);
+
+  function toggleErase() {
+    if (document.getElementById('erase').checked) {
+      document.getElementById('inst').setAttribute('erase-first','');
+    } else {
+      document.getElementById('inst').removeAttribute('erase-first');
+    }
+  }
+  
+  function reset() {
+    document.getElementById('bar-inner').style.transform = `translate(-50%,-10%)`
+    document.getElementById('bar-inner').style.background = `linear-gradient(to right, rgba(255,255,255,1.0) 50%, #444 50%)`;
+    document.getElementById('progress').textContent = "";
+    document.getElementById('extra').textContent = "";
+    document.getElementsByClassName('inst-button')[0].style.display = "block";
+    document.getElementsByClassName('log')[0].style.display = "none";
+    document.getElementById('reset-button').style.display = "none";
+  }
+  
+  function checkSupported() {
+    if (document.getElementById('inst').hasAttribute('install-unsupported')) unsupported();
+  }
+  
+  function unsupported() {
+    document.getElementById('flasher').innerHTML = "Sorry, your browser is not yet supported!<br>Please try on Desktop Chrome or Edge.<br>"
+  }
+  
+  function showSerialHelp() {
+    document.getElementById('coms').innerHTML = `Hit "Install" and select the correct COM port.<br><br>
+    You might be missing the drivers for your board.<br>
+    Here are drivers for chips commonly used in ESP boards:<br>
+    <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers" target="_blank">CP2102 (square chip)</a><br>
+    <a href="https://github.com/nodemcu/nodemcu-devkit/tree/master/Drivers" target="_blank">CH34x (rectangular chip)</a><br><br>
+    Make sure your USB cable supports data transfer.<br><br>
+    `;
+  }
+</script>
 </body>
 </html>

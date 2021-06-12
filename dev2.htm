@@ -203,7 +203,7 @@
       var i = obj.details.percentage;
       document.getElementById('state').textContent = "Writing...";
       document.getElementById('progress').textContent = i + "%";
-      document.getElementById('extra').textContent = `${(obj.details.bytesWritten/1000).toFixed(1)} / ${(obj.details.bytesTotal/1000).toFixed(1)}k`
+      document.getElementById('extra').textContent = `${(obj.details.bytesWritten/1000).toFixed(1)} / ${(obj.details.bytesTotal/1000).toFixed(1)} kB`
       //bar
       var a = (i < 50) ? 1.0 : 1.0 - (i-50)*0.02;
       document.getElementById('bar-inner').style.transform = `translate(-${(100-i)/2}%,-10%)`
