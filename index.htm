@@ -8,7 +8,7 @@
 	<title>Install WLED</title>
   <script
     type="module"
-    src="installer/install-button-300.js"
+    src="installer/install-button-320.js"
   ></script>
 	<style>
 		body {
@@ -163,7 +163,6 @@
   <li>Plug in your ESP to a USB port. We will install WLED <strike>0.13.0</strike> to it.</li>
   <li id="coms">Hit "Install" and select the correct COM port. <a onclick="showSerialHelp()">No device found?</a></li>
   <li>Wait a while, the process is a lot faster if you stay on this tab.</li>
-  <li>Unplug your ESP or hit the reset button to boot into WLED!</li>
 </ol><br><br>
 
 <div class="container inst-button">
@@ -228,7 +227,6 @@
         document.getElementsByClassName('inst-button')[0].style.display = "none";
         document.getElementsByClassName('log')[0].style.display = "block";
       } else if (s == "finished") {
-        document.getElementById('extra').textContent = "Please unplug/reset your board";
         document.getElementById('reset-button').style.display = "block";
       } else if (s == "error") {
         document.getElementById('state').textContent = "Error!";
