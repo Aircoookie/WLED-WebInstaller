@@ -194,9 +194,7 @@
   >
     <button class="btn" slot="activate">Install</button>
   </esp-web-install-button><br>
-  <input type="checkbox" id="erase" name="erase" onchange="toggleErase()" checked>
-  <label for="erase"> Clean install (deletes presets and settings)</label><br>
-  
+
   <!-- add new builds here -->
   <select id="ver" class="btn" onchange="setManifest()">
     <optgroup label="Release">
@@ -209,11 +207,12 @@
     </optgroup>
     <optgroup label="Beta">
       <option value="210618" data-manifest="bin/beta_210618/manifest.json"
-        data-ethernet="bin/beta_210618/manifest_e.json"
         >0.12.1-b1 (210618)</option>
     </optgroup>
   </select><br>
   
+  <input type="checkbox" id="erase" name="erase" onchange="toggleErase()" checked>
+  <label for="erase"> Clean install (deletes presets and settings)</label><br><br>
   <div id="eth">
     <input type="checkbox" id="ethernet" name="ethernet" onchange="setManifest()">
     <label for="ethernet"> My board has Ethernet</label><br>
