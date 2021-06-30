@@ -8,7 +8,7 @@
 	<title>Install WLED</title>
   <script
     type="module"
-    src="installer/install-button-320.js"
+    src="installer/install-button-342.js"
   ></script>
 	<style>
 		body {
@@ -22,6 +22,27 @@
     .sub {
       margin: -18px 0 18px 0;
       color: #09f;
+    }
+    
+    select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='white'><polygon points='0,0 100,0 50,50'/></svg>") no-repeat;
+      background-size: 12px;
+      background-position: 206px 17px;
+      padding-left: 12px !important;
+      background-repeat: no-repeat;
+      outline: none;
+    }
+    select:-moz-focusring {
+      transition-duration: 0s;
+      color: transparent;
+      text-shadow: 0 0 0 #fff;
+    }
+    option {
+      background-color: var(--c-3);
+      color: var(--c-f);
     }
     
     .btn {
@@ -159,7 +180,7 @@
 <div id="flasher">
 
 <ol>
-  <li>Plug in your ESP to a USB port. We will install WLED 0.12.0 to it.</li>
+  <li>Plug in your ESP to a USB port. We will install WLED <span id="verstr">0.12.0</span> to it.</li>
   <li id="coms">Hit "Install" and select the correct COM port. <a onclick="showSerialHelp()">No device found?</a></li>
   <li>Wait a while, the process is a lot faster if you stay on this tab.</li>
 </ol><br><br>
@@ -173,8 +194,30 @@
   >
     <button class="btn" slot="activate">Install</button>
   </esp-web-install-button><br>
+
+  <!-- add new builds here -->
+  <select id="ver" class="btn" onchange="setManifest()">
+    <optgroup label="Release">
+      <option value="0_12_0" data-manifest="bin/release_0_12_0/manifest.json"
+        data-ethernet="bin/release_0_12_0/manifest_e.json"
+        >0.12.0</option>
+    </optgroup>
+    <optgroup label="Sound Reactive">
+      <option value="na0" disabled>Soon :)</option>
+    </optgroup>
+    <optgroup label="Beta">
+      <option value="2106302" data-manifest="bin/beta_2106302/manifest.json"
+        data-ethernet="bin/beta_2106302/manifest_e.json"
+        >0.13.0-b0</option>
+    </optgroup>
+  </select><br>
+  
   <input type="checkbox" id="erase" name="erase" onchange="toggleErase()" checked>
-  <label for="erase"> Clean install (deletes presets and settings)</label><br>
+  <label for="erase"> Clean install (deletes presets and settings)</label><br><br>
+  <div id="eth">
+    <input type="checkbox" id="ethernet" name="ethernet" onchange="setManifest()">
+    <label for="ethernet"> My board has Ethernet</label><br>
+  </div>
 </div>
 
 <div class="container log">
@@ -247,6 +290,17 @@
     }
   }
   
+  function setManifest() {
+    var sel = document.getElementById('ver');
+    var m = sel.options[sel.selectedIndex].dataset.manifest;
+    var me = sel.options[sel.selectedIndex].dataset.ethernet;
+    document.getElementById('eth').style.display = me ? "block":"none";
+    if (me && document.getElementById('ethernet').checked) {
+      m = me;
+    }
+    document.getElementById('inst').setAttribute('manifest',m);
+  }
+  
   function reset() {
     document.getElementById('bar-inner').style.transform = `translate(-50%,-10%)`
     document.getElementById('bar-inner').style.background = `linear-gradient(to right, rgba(255,255,255,1.0) 50%, #444 50%)`;
@@ -259,6 +313,7 @@
   
   function checkSupported() {
     if (document.getElementById('inst').hasAttribute('install-unsupported')) unsupported();
+    else setManifest();
   }
   
   function unsupported() {
