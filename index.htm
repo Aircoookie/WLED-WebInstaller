@@ -210,7 +210,7 @@
         data-ethernet="bin/beta_2106302/manifest_e.json"
         >0.13.0-b0</option>
     </optgroup>
-  </select><br>
+  </select><br><br>
   
   <input type="checkbox" id="erase" name="erase" onchange="toggleErase()" checked>
   <label for="erase"> Clean install (deletes presets and settings)</label><br><br>
@@ -292,13 +292,15 @@
   
   function setManifest() {
     var sel = document.getElementById('ver');
-    var m = sel.options[sel.selectedIndex].dataset.manifest;
-    var me = sel.options[sel.selectedIndex].dataset.ethernet;
+    var opt = sel.options[sel.selectedIndex];
+    var m = opt.dataset.manifest;
+    var me = opt.dataset.ethernet;
     document.getElementById('eth').style.display = me ? "block":"none";
     if (me && document.getElementById('ethernet').checked) {
       m = me;
     }
     document.getElementById('inst').setAttribute('manifest',m);
+    document.getElementById('verstr').textContent = opt.text;
   }
   
   function reset() {
