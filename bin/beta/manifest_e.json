@@ -1,16 +1,16 @@
 {
-  "name": "WLED 0.13.0-b2",
+  "name": "WLED 0.13.0-b3",
   "builds": [
     {
       "chipFamily": "ESP32",
       "parts": [
         { "path": "esp32_bootloader_v2.bin", "offset": 0 },
-        { "path": "WLED_0.13.0-b2_ESP32_Ethernet.bin", "offset": 65536 }
+        { "path": "WLED_0.13.0-b3_ESP32_Ethernet.bin", "offset": 65536 }
       ]
     },
     {
       "chipFamily": "ESP8266",
-      "parts": [{ "path": "WLED_0.13.0-b2_ESP8266.bin", "offset": 0 }]
+      "parts": [{ "path": "WLED_0.13.0-b3_ESP8266.bin", "offset": 0 }]
     }
   ]
 }
