@@ -1,11 +1,12 @@
 {
-  "name": "WLED 0.13.0-b4",
+  "name": "WLED",
+  "version": "0.13.0-b4/2111100",
   "builds": [
     {
       "chipFamily": "ESP32",
       "parts": [
-        { "path": "esp32_bootloader_v2.bin", "offset": 0 },
-        { "path": "WLED_0.13.0-b4_ESP32.bin", "offset": 65536 }
+        { "path": "esp32_bootloader_v3.bin", "offset": 0 },
+        { "path": "esp32dev_c.bin", "offset": 65536 }
       ]
     },
     {
