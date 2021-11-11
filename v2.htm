@@ -182,20 +182,24 @@
 <ol>
   <li>Plug in your ESP to a USB port. We will install WLED <span id="verstr">0.12.0</span> to it.</li>
   <li id="coms">Hit "Install" and select the correct COM port. <a onclick="showSerialHelp()">No device found?</a></li>
-  <li>Wait a while, the process is a lot faster if you stay on this tab.</li>
+  <li>Get WLED installed and connected in less than 3 minutes!</li>
 </ol><br><br>
 
 <div class="container inst-button">
   <esp-web-install-button
     id="inst"
-    manifest="bin/release_0_12_0/manifest.json"
-    erase-first
+    manifest="bin-v2/dev/manifest.json"
   >
     <button class="btn" slot="activate">Install</button>
   </esp-web-install-button><br>
 
   <!-- add new builds here -->
   <select id="ver" class="btn" onchange="setManifest()">
+    <optgroup label="Testing">
+      <option data-manifest="bin-v2/dev/manifest.json"
+        data-ethernet="bin-v2/dev/manifest_e.json"
+        >0.13.0-b4</option>
+    </optgroup>
     <optgroup label="Release">
       <option data-manifest="bin/release_0_12_0/manifest.json"
         data-ethernet="bin/release_0_12_0/manifest_e.json"
@@ -211,90 +215,20 @@
         data-ethernet="bin/beta/manifest_e.json"
         >0.13.0-b4</option>
     </optgroup>
-    <optgroup label="Testing">
-      <option data-manifest="bin-v2/dev/manifest.json"
-        data-ethernet="bin-v2/dev/manifest_e.json"
-        >0.13.0-b4</option>
-    </optgroup>
   </select><br><br>
   
-  <input type="checkbox" id="erase" name="erase" onchange="toggleErase()" checked>
-  <label for="erase"> Clean install (deletes presets and settings)</label><br><br>
   <div id="eth">
     <input type="checkbox" id="ethernet" name="ethernet" onchange="setManifest()">
     <label for="ethernet"> My board has Ethernet</label><br>
   </div>
 </div>
 
-<div class="container log">
-  <span class="info-top" id="state">Initializing...</span>
-  <span class="info-top" id="progress"></span><br>
-  <div id="bar"><div id="bar-inner"></div></div>
-  <span class="info-bot" id="env">&nbsp;</span>
-  <span class="info-bot" id="extra">&nbsp;</span>
-</div>
-<div id="reset-button">
-  <br><button class="btn" onclick="reset()">&#8635; Start over</button><br>
-</div>
-
 </div>
 <br>Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a>
 
 <script>
-  function handleStateEvent(ev) {
-    var obj = ev.detail;
-    //console.log(obj);
-    var s = obj.state;
-    if (s == "writing") {
-      //progress
-      var i = obj.details.percentage;
-      document.getElementById('state').textContent = "Writing...";
-      document.getElementById('progress').textContent = i + "%";
-      document.getElementById('extra').textContent = `${(obj.details.bytesWritten/1000).toFixed(1)} / ${(obj.details.bytesTotal/1000).toFixed(1)} kB`
-      //bar
-      var a = (i < 50) ? 1.0 : 1.0 - (i-50)*0.02;
-      document.getElementById('bar-inner').style.transform = `translate(-${(100-i)/2}%,-10%)`
-      document.getElementById('bar-inner').style.background = `linear-gradient(to right, rgba(255,255,255,${a}) 50%, #444 50%)`;
-    } else {
-      document.getElementById('state').textContent = obj.message;
-      
-      //env
-      var manifestName = obj.manifest?.name;
-      var chipFamily = obj.chipFamily;
-      var env = "";
-      if (manifestName) {
-        env = obj.manifest.name;
-        if (chipFamily) env += " - "
-      }
-      if (chipFamily) env += obj.chipFamily;
-      if (env == "") env = "&nbsp;";
-      document.getElementById('env').innerHTML = env;
-      
-      //hide button and show log
-      if (s == "initializing") {
-        document.getElementsByClassName('inst-button')[0].style.display = "none";
-        document.getElementsByClassName('log')[0].style.display = "block";
-      } else if (s == "finished") {
-        document.getElementById('reset-button').style.display = "block";
-      } else if (s == "error") {
-        document.getElementById('state').textContent = "Error!";
-        document.getElementById('extra').textContent = obj.message;
-        document.getElementById('reset-button').style.display = "block";
-        if (!obj.chipFamily) document.getElementById('env').textContent = "";
-      }
-    }
-  }
-  
   const espWebInstallButton = document.querySelector("esp-web-install-button");
   espWebInstallButton.addEventListener("state-changed", handleStateEvent);
-
-  function toggleErase() {
-    if (document.getElementById('erase').checked) {
-      document.getElementById('inst').setAttribute('erase-first','');
-    } else {
-      document.getElementById('inst').removeAttribute('erase-first');
-    }
-  }
   
   function setManifest() {
     var sel = document.getElementById('ver');
@@ -307,16 +241,6 @@
     }
     document.getElementById('inst').setAttribute('manifest',m);
     document.getElementById('verstr').textContent = opt.text;
-  }
-  
-  function reset() {
-    document.getElementById('bar-inner').style.transform = `translate(-50%,-10%)`
-    document.getElementById('bar-inner').style.background = `linear-gradient(to right, rgba(255,255,255,1.0) 50%, #444 50%)`;
-    document.getElementById('progress').textContent = "";
-    document.getElementById('extra').textContent = "";
-    document.getElementsByClassName('inst-button')[0].style.display = "block";
-    document.getElementsByClassName('log')[0].style.display = "none";
-    document.getElementById('reset-button').style.display = "none";
   }
   
   function checkSupported() {
