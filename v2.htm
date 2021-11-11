@@ -226,10 +226,7 @@
 </div>
 <br>Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a>
 
-<script>
-  const espWebInstallButton = document.querySelector("esp-web-install-button");
-  espWebInstallButton.addEventListener("state-changed", handleStateEvent);
-  
+<script>  
   function setManifest() {
     var sel = document.getElementById('ver');
     var opt = sel.options[sel.selectedIndex];
