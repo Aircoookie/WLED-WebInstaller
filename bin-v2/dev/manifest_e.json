@@ -1,17 +1,17 @@
 {
   "name": "WLED",
-  "version": "0.13.0-b4/2111110",
+  "version": "0.13.0-b4/2111120",
   "builds": [
     {
       "chipFamily": "ESP32",
       "parts": [
         { "path": "esp32_bootloader_v3.bin", "offset": 0 },
-        { "path": "esp32_eth1.bin", "offset": 65536 }
+        { "path": "esp32_eth2.bin", "offset": 65536 }
       ]
     },
     {
       "chipFamily": "ESP8266",
-      "parts": [{ "path": "nodemcuv21.bin", "offset": 0 }]
+      "parts": [{ "path": "nodemcuv22.bin", "offset": 0 }]
     }
   ]
 }
