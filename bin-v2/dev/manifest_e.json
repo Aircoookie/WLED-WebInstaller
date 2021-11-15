@@ -1,6 +1,7 @@
 {
   "name": "WLED",
   "version": "0.13.0-b4/2111120",
+  "home_assistant_domain": "wled",
   "builds": [
     {
       "chipFamily": "ESP32",
