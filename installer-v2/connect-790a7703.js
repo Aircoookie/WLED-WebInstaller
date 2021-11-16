@@ -260,7 +260,7 @@ const t=window.ShadowRoot&&(void 0===window.ShadyCSS||window.ShadyCSS.nativeShad
         ></ewt-button>
       `}
     `}_renderDashboard(){const t=this._info.name;let e;return e=I`
-      <table class="esp_tools_info_table">
+      <table style="color: var(--mdc-dialog-content-ink-color, inherit)">
         <tr>
           <td>
             <svg viewBox="0 0 24 24" title="Software">
