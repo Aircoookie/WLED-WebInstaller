@@ -19,11 +19,6 @@
       color: #fff;
 		}
     
-    .sub {
-      margin: -18px 0 18px 0;
-      color: #09f;
-    }
-    
     select {
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -98,10 +93,6 @@
       margin: 5px;
     }
     
-    .clickable {
-      cursor: pointer;
-    }
-    
     .container {
       width: 80%;
       max-width: 510px;
@@ -116,59 +107,16 @@
       padding: 5px 0;
     }
 
-    .log {
-      padding: 6px 20px 8px 20px;
-      display: none;
-    }
-    
-    #reset-button {
-      display: none;
-    }
-
-    .info-top {
-      font-size: 32px;
-      display: inline-block;
-    }
-    
-    .info-bot {
-      display: inline-block;
-    }
-
-    #state {
-      float: left;
-    }
-
-    #progress {
-      float: right;
-    }
-
-    #bar {
-      height: 12px;
-      width: 100%;
-      margin: 26px 0 8px 0;
-      border-radius: 25px;
-      background: linear-gradient(to right, red, orange , yellow, #0a0, cyan, #09f);
-      overflow: hidden;
-      position: relative;
-    }
-
-    #bar-inner {
-      transform: translate(-50%,-10%);
-      width: 200%;
-      height: 120%;
-      background: linear-gradient(to right, #fff 50%, #444 50%);
-      transition: transform 3s;
-      position: absolute;
-      left: 0;
-      top: 0;
-    }
-
-    #env {
-      float: left;
-    }
-
-    #extra {
-      float: right;
+    @media (prefers-color-scheme: dark) {
+      ewt-install-dialog {
+        /*--mdc-theme-primary: #ffa000; /*button*/
+        --mdc-theme-surface: #333;
+        --mdc-dialog-heading-ink-color: #fff;
+        --mdc-dialog-content-ink-color: #ddd
+      }
+      ewt-install-dialog .table {
+        color: #ddd;
+      }
     }
 	</style>
 </head>
