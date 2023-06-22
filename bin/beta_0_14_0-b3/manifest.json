@@ -13,10 +13,8 @@
     {
       "chipFamily": "ESP32-C3",
       "parts": [
-        {
-          "path": "WLED_0.14.0-b3_ESP32-C3.bin",
-          "offset": 0
-        }
+        { "path": "esp32-c3_bootloader.bin", "offset": 0 },
+        { "path": "WLED_0.14.0-b3_ESP32-C3.bin", "offset": 65536 }
       ]
     },
     {
