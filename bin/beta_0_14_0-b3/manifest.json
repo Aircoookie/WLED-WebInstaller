@@ -20,7 +20,7 @@
     {
       "chipFamily": "ESP32-S2",
       "parts": [
-        { "path": "esp32-c2_bootloader.bin", "offset": 0 },
+        { "path": "esp32-s2_bootloader.bin", "offset": 0 },
         { "path": "WLED_0.14.0-b3_ESP32-S2.bin", "offset": 65536 }
       ]
     },
