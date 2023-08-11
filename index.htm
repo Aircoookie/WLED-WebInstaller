@@ -8,7 +8,7 @@
 	<title>Install WLED</title>
   <script
     type="module"
-    src="installer-v2/install-button.js"
+    src="installer/install-button.js"
   ></script>
 	<style>
 		body {
@@ -134,7 +134,7 @@
 <div class="container inst-button">
   <esp-web-install-button
     id="inst"
-    manifest="bin-v2/dev/manifest.json"
+    manifest=""
   >
     <button class="btn" slot="activate">Install</button>
   </esp-web-install-button><br>
@@ -142,6 +142,9 @@
   <!-- add new builds here -->
   <select id="ver" class="btn" onchange="setManifest()">
     <optgroup label="Beta">
+      <option data-manifest="bin/beta_0_14_0-b4/manifest.json"
+        data-ethernet="bin/beta_0_14_0-b4/manifest_e.json"
+        >0.14.0-b4</option>
       <option data-manifest="bin-v2/beta_0_14_0-b3/manifest.json"
         data-ethernet="bin-v2/beta_0_14_0-b3/manifest_e.json"
         >0.14.0-b3</option>
