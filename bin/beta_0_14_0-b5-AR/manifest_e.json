@@ -1,0 +1,6 @@
+{
+  "name": "WLED",
+  "version": "0.14.0-b5/2309100",
+  "home_assistant_domain": "wled",
+  "builds": []
+}
