@@ -28,6 +28,7 @@
       "chipFamily": "ESP32-S3",
       "parts": [
         { "path": "esp32-s3_bootloader_v2.bin", "offset": 0 },
+        { "path": "WLED_0.14.0_ESP32-S3_8MB.bin", "offset": 65536 }
       ]
     },
     {
