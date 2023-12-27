@@ -53,12 +53,7 @@ img {
 }
 
 .disabled__label {
-    background: rgb(81, 185, 255);
-    color: rgb(173, 173, 173);
-    padding: 8px 14px;
-    font-size: 14px;
-    font-family: sans-serif;
-    transition: background 0.1s;
+    display: none;
 }
 
 
