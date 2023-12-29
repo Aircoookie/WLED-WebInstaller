@@ -1,6 +1,6 @@
 {
   "name": "WLED",
-  "version": "0.14.0/2310130",
+  "version": "0.14.1-b1/2312180 audio",
   "home_assistant_domain": "wled",
   "builds": [
     {
