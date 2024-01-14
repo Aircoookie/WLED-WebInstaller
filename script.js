@@ -4,11 +4,14 @@ function setManifest() {
     var m = opt.dataset.manifest;
     var me = opt.dataset.ethernet;
     var ma = opt.dataset.audio;
+    var mt = opt.dataset.test;
 
     //handle ethernet checkbox
     m = handleCheckbox(m, me, 'ethernet');
     //handle audioreactive checkbox
     m = handleCheckbox(m, ma, 'audio');
+    //handle audioreactive checkbox
+    m = handleCheckbox(m, mt, 'test');
 
     document.getElementById('inst').setAttribute('manifest', m);
     document.getElementById('verstr').textContent = opt.text;
@@ -40,6 +43,8 @@ function resetCheckboxes() {
     document.getElementById('ethernet').disabled = false;
     document.getElementById('audio').checked = false;
     document.getElementById('audio').disabled = false;
+    document.getElementById('test').checked = false;
+    document.getElementById('test').disabled = false;
 }
 
 function checkSupported() {
