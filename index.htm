@@ -28,17 +28,20 @@
   <!-- add new builds here -->
   <select id="ver" class="btn" onchange="resetCheckboxes();setManifest();">
     <optgroup label="Beta">
+      <option data-manifest="bin/beta_0_14_2-b2/manifest.json"
+        data-ethernet="bin/beta_0_14_2-b2/manifest_e.json"
+        data-audio = "bin/beta_0_14_2-b2/manifest_a.json"
+        data-test = "bin/beta_0_14_2-b2/manifest_t.json"
+        >0.14.2-b2</option>
       <option data-manifest="bin/beta_0_14_2-b1/manifest.json"
         data-ethernet="bin/beta_0_14_2-b1/manifest_e.json"
         data-audio = "bin/beta_0_14_2-b1/manifest_a.json"
-        data-test = "bin/beta_0_14_2-b1/manifest_t.json"
         >0.14.2-b1</option>
     </optgroup>
     <optgroup label="Release">
       <option data-manifest="bin/release_0_14_1/manifest.json"
         data-ethernet="bin/release_0_14_1/manifest_e.json"
         data-audio = "bin/release_0_14_1/manifest_a.json"
-        data-test = "bin/release_0_14_1/manifest_t.json"
         >0.14.1</option>
       <option data-manifest="bin/release_0_14_0/manifest.json"
         data-ethernet="bin/release_0_14_0/manifest_e.json"
@@ -66,7 +69,7 @@
     <input class="radio__input" type="radio" value="ethernet" name="version" id="ethernet">
     <label class="radio__label" for="ethernet" id="ethernet_label">Ethernet</label>
     <input class="radio__input" type="radio" value="test" name="version" id="test">
-    <label class="radio__label" for="test" id="test_label">Use alternative Bootloader (S2 only)</label>
+    <label class="radio__label" for="test" id="test_label">ESP8266 CPU Frequency Test</label>
   </div>
     <br>
     <div class="container inst-button">
