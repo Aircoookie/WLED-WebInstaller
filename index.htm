@@ -29,6 +29,11 @@
   <select id="ver" class="btn" onchange="resetCheckboxes();setManifest();">
     
     <optgroup label="Beta">
+      <option data-manifest="bin/beta_0_15_0-b3/manifest.json"
+        data-ethernet="bin/beta_0_15_0-b3/manifest_e.json"
+        data-audio = "bin/beta_0_15_0-b3/manifest_a.json"
+        data-test = "bin/beta_0_15_0-b3/manifest_t.json"
+        >0.15.0-b3</option>
       <option data-manifest="bin/beta_0_15_0-b2/manifest.json"
         data-ethernet="bin/beta_0_15_0-b2/manifest_e.json"
         data-audio = "bin/beta_0_15_0-b2/manifest_a.json"
@@ -67,10 +72,10 @@
         data-ethernet="bin/release_0_13_1/manifest_e.json"
         >0.13.1</option>
     
-    <optgroup label="Sound Reactive">
+    <optgroup label="Sound Reactive (deprecated)">
       <option data-manifest="bin/sr_0_13_4/manifest.json"
         data-ethernet="bin/sr_0_13_4/manifest_e.json"
-        >0.13.4</option>
+        >0.13.4 </option>
     </optgroup>
   </select><br>
 
