@@ -26,29 +26,29 @@
     <img class="w-[700px]" src="https://kno.wled.ge/assets/images/ui/headers/wled_logo_akemi.png">
   </div>
 
-  <div class="flex justify-center">
-    <div class="block">
 
-      <h2 class="font-bold text-2xl">Welcome to the WLED web installer!</h2>
+  <div class="block">
 
-      <div id="flasher">
+    <h2 class="text-center font-bold text-2xl">Welcome to the WLED web installer!</h2>
 
-        <h2 class="my-4 mt-5">To install WLED, please follow these instructions: </h2>
+    <div id="flasher">
+
+      <div class="flex justify-center my-4">
         <div class="space-y-2">
           <p>1. Plug in your ESP to a USB port. We will install WLED <span id="verstr">0.12.0</span> to it.</p>
           <p>2. Hit "Install" and select the correct COM port. <a onclick="showSerialHelp()"
               class="underline text-blue-300 cursor-pointer">No device found?</a>
           </p>
           <p id="coms"></p>
-
           <p>3. Get WLED installed and connected in less than 3 minutes!</p>
-
         </div>
+      </div>
 
-        <div>
 
+      <div class="flex justify-center">
+        <div class="block">
           <!-- add new builds here -->
-          <select id="ver" class="btn" onchange="setManifest()">
+          <select id="ver" class="bg-blue-600/30 border border-blue-700/30 rounded-lg p-2" onchange="setManifest()">
             <optgroup label="Beta">
               <option data-manifest="bin/beta_0_14_0-b4/manifest.json"
                 data-ethernet="bin/beta_0_14_0-b4/manifest_e.json">
@@ -71,16 +71,17 @@
           </select>
 
           <div id="eth">
-            <input type="checkbox" id="ethernet" name="ethernet" onchange="setManifest()">
+            <input class="rounded bg-black" type="checkbox" id="ethernet" name="ethernet" onchange="setManifest()">
             <label for="ethernet"> My board has Ethernet</label><br>
           </div>
 
           <esp-web-install-button id="inst" manifest="">
-            <button class="bg-blue-600 border border-gray-200 rounded-md py-3 px-10" slot="activate">Install</button>
+            <button class="bg-blue-600/30 border border-blue-700/30 rounded-lg py-3 px-10"
+              slot="activate">Install</button>
           </esp-web-install-button><br>
         </div>
-
       </div>
+
     </div>
   </div>
 
@@ -126,7 +127,8 @@
       }
 
       else {
-        document.getElementById('coms').innerHTML = ` <div class="bg-amber-300/30 p-5 rounded-lg flex space-x-3 border border-amber-400/30">
+        document.getElementById('coms').innerHTML = ` 
+        <div class="bg-amber-300/30 p-5 rounded-lg flex space-x-3 border border-amber-400/30">
 
             <svg width="22" height="22" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
