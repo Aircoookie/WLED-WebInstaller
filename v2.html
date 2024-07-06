@@ -33,37 +33,17 @@
 
       <div id="flasher">
 
-        <h2 class="my-2 mt-5">To install WLED, please follow these instructions: </h2>
-        <div class="space-y-1">
+        <h2 class="my-4 mt-5">To install WLED, please follow these instructions: </h2>
+        <div class="space-y-2">
           <p>1. Plug in your ESP to a USB port. We will install WLED <span id="verstr">0.12.0</span> to it.</p>
-          <p id="coms">2. Hit "Install" and select the correct COM port. <a onclick="showSerialHelp()"
+          <p>2. Hit "Install" and select the correct COM port. <a onclick="showSerialHelp()"
               class="underline text-blue-300 cursor-pointer">No device found?</a>
           </p>
-
-          <div class="bg-yellow-300/50 p-5 rounded-lg flex space-x-3">
-
-            <svg width="30" height="30" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M25.7581 7.43467C25.106 6.19623 23.3361 6.18643 22.6703 7.41757L6.71662 36.9192C6.08608 38.0852 6.93039 39.5017 8.25595 39.5017H39.7435C41.0606 39.5017 41.9056 38.1017 41.292 36.9363L25.7581 7.43467ZM20.4713 6.22838C22.0881 3.23848 26.3866 3.26227 27.9702 6.26991L43.5041 35.7716C44.9943 38.6017 42.942 42.0017 39.7435 42.0017H8.25595C5.03672 42.0017 2.98626 38.5617 4.51756 35.73L20.4713 6.22838ZM24 15C24.6904 15 25.25 15.5596 25.25 16.25V27.75C25.25 28.4404 24.6904 29 24 29C23.3096 29 22.75 28.4404 22.75 27.75V16.25C22.75 15.5596 23.3096 15 24 15ZM24 35C25.1046 35 26 34.1046 26 33C26 31.8954 25.1046 31 24 31C22.8954 31 22 31.8954 22 33C22 34.1046 22.8954 35 24 35Z"
-                fill="#fde047" />
-            </svg>
-
-            <div class="text-sm text-yellow-100">
-              <p>You might be missing the drivers for your board.</p>
-              <p>Here are drivers for chips commonly used in ESP boards:</p>
-              <a class="underline text-blue-300 cursor-pointer"
-                href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers" target="_blank">CP2102 (square
-                chip)</a>
-              <br>
-              <a class="underline text-blue-300 cursor-pointer"
-                href="https://github.com/nodemcu/nodemcu-devkit/tree/master/Drivers" target="_blank">CH34x (rectangular
-                chip)</a>
-              <p>Make sure your USB cable supports data transfer.</p>
-            </div>
-          </div>
+          <p id="coms"></p>
 
           <p>3. Get WLED installed and connected in less than 3 minutes!</p>
-        </div><br><br>
+
+        </div>
 
         <div>
 
@@ -140,13 +120,38 @@
     }
 
     function showSerialHelp() {
-      document.getElementById('coms').innerHTML = `2. Hit "Install" and select the correct COM port.<br><br>
-    You might be missing the drivers for your board.<br>
-    Here are drivers for chips commonly used in ESP boards:<br>
-    <a class="underline text-blue-300 cursor-pointer" href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers" target="_blank">CP2102 (square chip)</a><br>
-    <a class="underline text-blue-300 cursor-pointer" href="https://github.com/nodemcu/nodemcu-devkit/tree/master/Drivers" target="_blank">CH34x (rectangular chip)</a><br><br>
-    Make sure your USB cable supports data transfer.<br><br>
-    `;
+
+      if (document.getElementById('coms').innerHTML) {
+        document.getElementById('coms').innerHTML = "";
+      }
+
+      else {
+        document.getElementById('coms').innerHTML = ` <div class="bg-amber-300/30 p-5 rounded-lg flex space-x-3 border border-amber-400/30">
+
+            <svg width="22" height="22" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M25.7581 7.43467C25.106 6.19623 23.3361 6.18643 22.6703 7.41757L6.71662 36.9192C6.08608 38.0852 6.93039 39.5017 8.25595 39.5017H39.7435C41.0606 39.5017 41.9056 38.1017 41.292 36.9363L25.7581 7.43467ZM20.4713 6.22838C22.0881 3.23848 26.3866 3.26227 27.9702 6.26991L43.5041 35.7716C44.9943 38.6017 42.942 42.0017 39.7435 42.0017H8.25595C5.03672 42.0017 2.98626 38.5617 4.51756 35.73L20.4713 6.22838ZM24 15C24.6904 15 25.25 15.5596 25.25 16.25V27.75C25.25 28.4404 24.6904 29 24 29C23.3096 29 22.75 28.4404 22.75 27.75V16.25C22.75 15.5596 23.3096 15 24 15ZM24 35C25.1046 35 26 34.1046 26 33C26 31.8954 25.1046 31 24 31C22.8954 31 22 31.8954 22 33C22 34.1046 22.8954 35 24 35Z"
+                fill="#fde047" />
+            </svg>
+
+            <div class="text-sm text-amber-200 space-y-1">
+              <p>You might be missing the drivers for your board.</p>
+              <p>Here are drivers for chips commonly used in ESP boards:</p>
+              <p>
+                <a class="underline text-blue-300 cursor-pointer"
+                  href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers" target="_blank">CP2102 (square
+                  chip)</a>
+              </p>
+              <p>
+                <a class="underline text-blue-300 cursor-pointer"
+                  href="https://github.com/nodemcu/nodemcu-devkit/tree/master/Drivers" target="_blank">CH34x
+                  (rectangular
+                  chip)</a>
+              </p>
+              <p>Make sure your USB cable supports data transfer.</p>
+            </div>
+          </div>`
+      }
     }
   </script>
 </body>
