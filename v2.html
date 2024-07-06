@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content='width=device-width' name='viewport'>
-  <meta name="theme-color" content="#222222">
+  <meta name="theme-color" content="#02182B">
   <link rel="shortcut icon" href="favicon.png">
   <title>Install WLED</title>
 
@@ -22,12 +22,14 @@
 
 <body class="text-white bg-[#02182B]" onload="checkSupported()">
 
+  <!-- WLED Logo Image -->
   <div class="flex justify-center my-10">
     <img class="w-[700px]" src="https://kno.wled.ge/assets/images/ui/headers/wled_logo_akemi.png">
   </div>
 
 
-  <div class="block">
+  <!-- Main section -->
+  <section class="block">
 
     <h2 class="text-center font-bold text-2xl">Welcome to the WLED web installer!</h2>
 
@@ -37,64 +39,84 @@
         <div class="space-y-2">
           <p>1. Plug in your ESP to a USB port. We will install WLED <span id="verstr">0.12.0</span> to it.</p>
           <p>2. Hit "Install" and select the correct COM port. <a onclick="showSerialHelp()"
-              class="underline text-blue-300 cursor-pointer">No device found?</a>
+              class="underline text-blue-500 cursor-pointer">No device found?</a>
           </p>
           <p id="coms"></p>
           <p>3. Get WLED installed and connected in less than 3 minutes!</p>
         </div>
       </div>
 
+      <div class="flex justify-center my-4">
+        <!-- add new builds here -->
+        <select style="border-radius: 25px;" id="ver" class="bg-[#0a2f65] border border-blue-700/30 px-10" onchange="setManifest()">
+          <optgroup label="Beta">
+            <option data-manifest="bin/beta_0_14_0-b4/manifest.json" data-ethernet="bin/beta_0_14_0-b4/manifest_e.json">
+              0.14.0-b4</option>
+            <option data-manifest="bin-v2/beta_0_14_0-b3/manifest.json"
+              data-ethernet="bin-v2/beta_0_14_0-b3/manifest_e.json">0.14.0-b3</option>
+            <option data-manifest="bin-v2/beta_0_14_0-b1/manifest.json"
+              data-ethernet="bin-v2/beta_0_14_0-b1/manifest_e.json">0.14.0-b1</option>
+          </optgroup>
+          <optgroup label="Release">
+            <option data-manifest="bin-v2/release_0_13_3/manifest.json"
+              data-ethernet="bin-v2/release_0_13_3/manifest_e.json">0.13.3</option>
+            <option data-manifest="bin-v2/release_0_13_1/manifest.json"
+              data-ethernet="bin-v2/release_0_13_1/manifest_e.json">0.13.1</option>
+          </optgroup>
+          <optgroup label="Sound Reactive">
+            <option data-manifest="bin-v2/sr_0_13_4/manifest.json" data-ethernet="bin-v2/sr_0_13_4/manifest_e.json">
+              0.13.4</option>
+          </optgroup>
+        </select>
+      </div>
 
-      <div class="flex justify-center">
-        <div class="block">
-          <!-- add new builds here -->
-          <select id="ver" class="bg-blue-600/30 border border-blue-700/30 rounded-lg p-2" onchange="setManifest()">
-            <optgroup label="Beta">
-              <option data-manifest="bin/beta_0_14_0-b4/manifest.json"
-                data-ethernet="bin/beta_0_14_0-b4/manifest_e.json">
-                0.14.0-b4</option>
-              <option data-manifest="bin-v2/beta_0_14_0-b3/manifest.json"
-                data-ethernet="bin-v2/beta_0_14_0-b3/manifest_e.json">0.14.0-b3</option>
-              <option data-manifest="bin-v2/beta_0_14_0-b1/manifest.json"
-                data-ethernet="bin-v2/beta_0_14_0-b1/manifest_e.json">0.14.0-b1</option>
-            </optgroup>
-            <optgroup label="Release">
-              <option data-manifest="bin-v2/release_0_13_3/manifest.json"
-                data-ethernet="bin-v2/release_0_13_3/manifest_e.json">0.13.3</option>
-              <option data-manifest="bin-v2/release_0_13_1/manifest.json"
-                data-ethernet="bin-v2/release_0_13_1/manifest_e.json">0.13.1</option>
-            </optgroup>
-            <optgroup label="Sound Reactive">
-              <option data-manifest="bin-v2/sr_0_13_4/manifest.json" data-ethernet="bin-v2/sr_0_13_4/manifest_e.json">
-                0.13.4</option>
-            </optgroup>
-          </select>
-
-          <div id="eth">
-            <input class="rounded" type="checkbox" id="ethernet" name="ethernet" onchange="setManifest()">
-            <label for="ethernet"> My board has Ethernet</label><br>
-          </div>
-
-          <esp-web-install-button id="inst" manifest="">
-            <button class="bg-blue-600/30 border border-blue-700/30 rounded-lg py-3 px-10"
-              slot="activate">Install</button>
-          </esp-web-install-button><br>
+      <div class="flex justify-center my-4">
+        <div id="eth">
+          <input class="rounded bg-transparent border border-gray-300" type="checkbox" id="ethernet" name="ethernet"
+            onchange="setManifest()">
+          <label for="ethernet">My board has Ethernet</label><br>
         </div>
       </div>
 
+      <div class="flex justify-center my-4">
+        <esp-web-install-button id="inst" manifest="">
+          <button style="border-radius: 25px;" id="ver" class="bg-[#0a2f65] border border-blue-700/30 px-10 p-2"  
+            slot="activate">Install</button>
+        </esp-web-install-button>
+      </div>
+
     </div>
-  </div>
+  </section>
 
   <footer>
 
     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
+
     <div class="text-center space-y-3">
-      <p>Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a></p>
+      <p>This project is licensed under the 
+        <a class="underline text-blue-500 cursor-pointer"
+          href="https://raw.githubusercontent.com/Aircoookie/WLED-WebInstaller/master/LICENSE">MIT License</a>.
+      </p>
+
+      <p>ESP Web Tools is licensed under the
+        <a class="underline text-blue-500 cursor-pointer"
+          href="https://raw.githubusercontent.com/esphome/esp-web-tools/main/LICENSE">
+          Apache-2.0 license</a>.
+      </p>
+
+      <p>Powered by
+        <a class="underline text-blue-500 cursor-pointer" href="https://esphome.github.io/esp-web-tools/"
+          target="_blank">ESP Web Tools</a>
+      </p>
+
       <p>
-        <a href="https://github.com/Aircoookie/WLED" target="_blank">GitHub</a>&emsp;<a href="https://kno.wled.ge"
+        <a class="underline text-blue-500 cursor-pointer" href="https://github.com/Aircoookie/WLED"
+          target="_blank">GitHub</a>&emsp;<a class="underline text-blue-500 cursor-pointer" href="https://kno.wled.ge"
           target="_blank">kno.wled.ge</a>
       </p>
+
     </div>
+
   </footer>
 
   <script>

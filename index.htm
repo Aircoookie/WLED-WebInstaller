@@ -1,119 +1,139 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
-	<meta content='width=device-width' name='viewport'>
-  <meta name="theme-color" content="#222222">
-  <link rel="shortcut icon" href="favicon.png"> 
-  <link rel="stylesheet" href="style.css">
-	<title>Install WLED</title>
-  <script
-    type="module"
-    src="installer/install-button.js"
-  ></script>
+  <meta content='width=device-width' name='viewport'>
+  <meta name="theme-color" content="#02182B">
+  <link rel="shortcut icon" href="favicon.png">
+  <link href="./output.css" rel="stylesheet">
+
+  <title>Install WLED</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <script type="module" src="installer/install-button.js"></script>
+
 </head>
-<body onload="checkSupported()">
-<img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG0AAAAfCAMAAADazLOuAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABLUExURQAAAAB81gCU/zKq///mo7sWMN8bO+ZIYtZaAP9rAP+HMsCiG+TAIOnMS0KqNU7KPnLUZOrq6v///4CAgGhoaL+/v6CgoExMTAAAAAlm4O8AAAAZdFJOU////////////////////////////////wABNAq3AAAACXBIWXMAAA7DAAAOwwHHb6hkAAACN0lEQVRIS73VjVLCMBAEYIr8CYKkrdj3f1J37zaXFCpTO+piaDgbPq9px9VQ0qyrvKj4q6m0Zr1h+M7xF1zRmnWzqV9/0d2jttGotO1uv9dUObwej5oqp7fzWVPl8n69aprzoOUUbbvdIbV3OLwitXc6vSG1d7m8I3feSEN0j2CeNbOY4MxigjOLCc4sZsTV2l1cCyy4wIILLLjAxtykltq2rbTU+qi01N5rXNO2leaFORoija2l5MM5a02ac9Ya16Sk5tgaPrUpjZub0BL6YqSxKwbH77XUUmSkJXSl8QtaMuyJhq5maL5nTKVpZC13VmtMpTFT2g4vJjTuGfMzzXftiUZnhdtgb1xofvypRon5TjNnxYN9zJo6K5ruSIzQtGuVZn0x91rKvdHBvm39E7SyZ4y06Gz8BDBFKzsXmhcwyfsGZ9VpbhoiCinaxPNmGWmWWrNU2jB0q6HvOhN1JUtCixQtp2g51ZVUXIPS2RMAD++T2nY/DrDjOMDO4wC7jmNYj3d73nrXug8Yt9uNB8xNU1cKNXWlUFNXCjV1pZhGTE83m2vWfYf/NGj4Bg1zu5JD3/MnH5ZWfLOksbmGWGjgXMN5/C2GXYGFFW9Nmtle6Xut0Gm+JsayCj8z0nhjGvYJzVf4aSzmNYsr+u7Q2JIdoX3YOQjOslmsW1jJ3120nE9gfo79hTaNdcsqVR610lvO47pllae9ReZ805zKo2a3iaY5c75pTmVCA6dJ5H7N0sr/asPwBehb7ifEhusRAAAAAElFTkSuQmCC">
-<div class="main">
-<h2>Welcome to the WLED web installer!</h2>
 
-<div id="flasher">
+<body class="text-white bg-[#02182B]" onload="checkSupported()">
 
-<ol>
-  <li>Plug in your ESP to a USB port. We will install WLED <span id="verstr">0.12.0</span> to it.</li>
-  <li id="coms">Hit "Install" and select the correct COM port. <a onclick="showSerialHelp()">No device found?</a></li>
-  <li>Get WLED installed and connected in less than 3 minutes!</li>
-</ol><br><br>
-
-  <!-- add new builds here -->
-  <select id="ver" class="btn" onchange="resetCheckboxes();setManifest();">
-    
-    <optgroup label="Beta">
-      <option data-manifest="bin/beta_0_15_0-b4/manifest.json"
-        data-ethernet="bin/beta_0_15_0-b4/manifest_e.json"
-        data-audio = "bin/beta_0_15_0-b4/manifest_a.json"
-        data-test = "bin/beta_0_15_0-b4/manifest_t.json"
-        >0.15.0-b4</option>
-      <option data-manifest="bin/beta_0_15_0-b3/manifest.json"
-        data-ethernet="bin/beta_0_15_0-b3/manifest_e.json"
-        data-audio = "bin/beta_0_15_0-b3/manifest_a.json"
-        data-test = "bin/beta_0_15_0-b3/manifest_t.json"
-        >0.15.0-b3</option>
-      <option data-manifest="bin/beta_0_15_0-b2/manifest.json"
-        data-ethernet="bin/beta_0_15_0-b2/manifest_e.json"
-        data-audio = "bin/beta_0_15_0-b2/manifest_a.json"
-        data-test = "bin/beta_0_15_0-b2/manifest_t.json"
-        >0.15.0-b2</option>
-      <option data-manifest="bin/beta_0_15_0-b1/manifest.json"
-        data-ethernet="bin/beta_0_15_0-b1/manifest_e.json"
-        data-audio = "bin/beta_0_15_0-b1/manifest_a.json"
-        data-test = "bin/beta_0_15_0-b1/manifest_t.json"
-        >0.15.0-b1</option>
-    </optgroup>
- 
-    <optgroup label="Release">
-      <option data-manifest="bin/release_0_14_4/manifest.json"
-        data-ethernet="bin/release_0_14_4/manifest_e.json"
-        data-audio = "bin/release_0_14_4/manifest_a.json"
-        data-test = "bin/beta_0_14_4/manifest_t.json"
-        >0.14.4</option>
-      <option data-manifest="bin/release_0_14_3/manifest.json"
-        data-ethernet="bin/release_0_14_3/manifest_e.json"
-        data-audio = "bin/release_0_14_3/manifest_a.json"
-        data-test = "bin/beta_0_14_3/manifest_t.json"
-        >0.14.3</option>
-      <option data-manifest="bin/release_0_14_2/manifest.json"
-        data-ethernet="bin/release_0_14_2/manifest_e.json"
-        data-audio = "bin/release_0_14_2/manifest_a.json"
-        data-test = "bin/beta_0_14_2/manifest_t.json"
-        >0.14.2</option>
-      <option data-manifest="bin/release_0_14_1/manifest.json"
-        data-ethernet="bin/release_0_14_1/manifest_e.json"
-        data-audio = "bin/release_0_14_1/manifest_a.json"
-        >0.14.1</option>
-      <option data-manifest="bin/release_0_14_0/manifest.json"
-        data-ethernet="bin/release_0_14_0/manifest_e.json"
-        data-audio = "bin/release_0_14_0/manifest_a.json"
-        >0.14.0</option>
-      <option data-manifest="bin/release_0_13_3/manifest.json"
-        data-ethernet="bin/release_0_13_3/manifest_e.json"
-        >0.13.3</option>
-      <option data-manifest="bin/release_0_13_1/manifest.json"
-        data-ethernet="bin/release_0_13_1/manifest_e.json"
-        >0.13.1</option>
-    
-    <optgroup label="Sound Reactive (deprecated)">
-      <option data-manifest="bin/sr_0_13_4/manifest.json"
-        data-ethernet="bin/sr_0_13_4/manifest_e.json"
-        >0.13.4 </option>
-    </optgroup>
-  </select><br>
-
-  <div class="radio" onchange="setManifest()">
-    <input class="radio__input" type="radio" value="normal" name="version" id="normal" checked>
-    <label class="radio__label" for="normal" id="normal_label">Plain</label>
-    <input class="radio__input" type="radio" value="audio" name="version" id="audio">
-    <label class="radio__label" for="audio" id="audio_label">Audioreactive</label>
-    <input class="radio__input" type="radio" value="ethernet" name="version" id="ethernet">
-    <label class="radio__label" for="ethernet" id="ethernet_label">Ethernet</label>
-    <input class="radio__input" type="radio" value="test" name="version" id="test">
-    <label class="radio__label" for="test" id="test_label">ESP8266 CPU Frequency Test</label>
+  <!-- WLED Logo Image -->
+  <div class="flex justify-center my-10">
+    <img class="w-[700px]" src="https://kno.wled.ge/assets/images/ui/headers/wled_logo_akemi.png">
   </div>
-    <br>
-    <div class="container inst-button">
-      <esp-web-install-button
-        id="inst"
-        manifest=""
-      >
-        <button class="btn" slot="activate">Install</button>
-      </esp-web-install-button><br>
-</div>
-<br></brY><br>Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a><br>
-<br><a href="https://github.com/Aircoookie/WLED" target="_blank">GitHub</a>&emsp;<a href="https://kno.wled.ge" target="_blank">kno.wled.ge</a>
 
-<script
-  type = "text/javascript"
-  src="script.js"
-></script>
+  <div class="main">
+    <h2 class="text-center font-bold text-2xl">Welcome to the WLED web installer!</h2>
+
+    <div id="flasher">
+
+      <div class="flex justify-center my-4">
+        <div class="space-y-2">
+          <p>1. Plug in your ESP to a USB port. We will install WLED <span id="verstr">0.12.0</span> to it.</p>
+          <p>2. Hit "Install" and select the correct COM port. <a onclick="showSerialHelp()"
+              class="underline text-blue-500 cursor-pointer">No device found?</a>
+          </p>
+          <p id="coms"></p>
+          <p>3. Get WLED installed and connected in less than 3 minutes!</p>
+        </div>
+      </div>
+
+      <div class="flex justify-center my-4">
+        <!-- add new builds here -->
+        <select style="border-radius: 25px;" id="ver" class="bg-[#0a2f65] border border-blue-700/30 px-10" onchange="resetCheckboxes();setManifest();">
+          <optgroup label="Beta">
+            <option data-manifest="bin/beta_0_15_0-b4/manifest.json" data-ethernet="bin/beta_0_15_0-b4/manifest_e.json"
+              data-audio="bin/beta_0_15_0-b4/manifest_a.json" data-test="bin/beta_0_15_0-b4/manifest_t.json">0.15.0-b4
+            </option>
+            <option data-manifest="bin/beta_0_15_0-b3/manifest.json" data-ethernet="bin/beta_0_15_0-b3/manifest_e.json"
+              data-audio="bin/beta_0_15_0-b3/manifest_a.json" data-test="bin/beta_0_15_0-b3/manifest_t.json">0.15.0-b3
+            </option>
+            <option data-manifest="bin/beta_0_15_0-b2/manifest.json" data-ethernet="bin/beta_0_15_0-b2/manifest_e.json"
+              data-audio="bin/beta_0_15_0-b2/manifest_a.json" data-test="bin/beta_0_15_0-b2/manifest_t.json">0.15.0-b2
+            </option>
+            <option data-manifest="bin/beta_0_15_0-b1/manifest.json" data-ethernet="bin/beta_0_15_0-b1/manifest_e.json"
+              data-audio="bin/beta_0_15_0-b1/manifest_a.json" data-test="bin/beta_0_15_0-b1/manifest_t.json">0.15.0-b1
+            </option>
+          </optgroup>
+          <optgroup label="Release">
+            <option data-manifest="bin/release_0_14_4/manifest.json" data-ethernet="bin/release_0_14_4/manifest_e.json"
+              data-audio="bin/release_0_14_4/manifest_a.json" data-test="bin/beta_0_14_4/manifest_t.json">0.14.4</option>
+            <option data-manifest="bin/release_0_14_3/manifest.json" data-ethernet="bin/release_0_14_3/manifest_e.json"
+              data-audio="bin/release_0_14_3/manifest_a.json" data-test="bin/beta_0_14_3/manifest_t.json">0.14.3</option>
+            <option data-manifest="bin/release_0_14_2/manifest.json" data-ethernet="bin/release_0_14_2/manifest_e.json"
+              data-audio="bin/release_0_14_2/manifest_a.json" data-test="bin/beta_0_14_2/manifest_t.json">0.14.2</option>
+            <option data-manifest="bin/release_0_14_1/manifest.json" data-ethernet="bin/release_0_14_1/manifest_e.json"
+              data-audio="bin/release_0_14_1/manifest_a.json">0.14.1</option>
+            <option data-manifest="bin/release_0_14_0/manifest.json" data-ethernet="bin/release_0_14_0/manifest_e.json"
+              data-audio="bin/release_0_14_0/manifest_a.json">0.14.0</option>
+            <option data-manifest="bin/release_0_13_3/manifest.json" data-ethernet="bin/release_0_13_3/manifest_e.json">
+              0.13.3</option>
+            <option data-manifest="bin/release_0_13_1/manifest.json" data-ethernet="bin/release_0_13_1/manifest_e.json">
+              0.13.1</option>
+          <optgroup label="Sound Reactive (deprecated)">
+            <option data-manifest="bin/sr_0_13_4/manifest.json" data-ethernet="bin/sr_0_13_4/manifest_e.json">0.13.4
+            </option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="flex justify-center">
+        <!-- This part i styled in input.css -->
+        <div class="radio" onchange="setManifest()">
+          <input class="radio__input" type="radio" value="normal" name="version" id="normal" checked>
+          <label class="radio__label" for="normal" id="normal_label">Plain</label>
+          <input class="radio__input" type="radio" value="audio" name="version" id="audio">
+          <label class="radio__label" for="audio" id="audio_label">Audioreactive</label>
+          <input class="radio__input" type="radio" value="ethernet" name="version" id="ethernet">
+          <label class="radio__label" for="ethernet" id="ethernet_label">Ethernet</label>
+          <input class="radio__input" type="radio" value="test" name="version" id="test">
+          <label class="radio__label" for="test" id="test_label">ESP8266 CPU Frequency Test</label>
+        </div>
+      </div>
+
+      <div class="flex justify-center my-4">
+        <esp-web-install-button id="inst" manifest="">
+          <button style="border-radius: 25px;" id="ver" class="bg-[#0a2f65] border border-blue-700/30 px-10 p-2"  slot="activate">Install</button>
+        </esp-web-install-button><br>
+      </div>
+
+      <footer>
+
+        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
+
+        <div class="text-center space-y-3">
+          <p>This project is licensed under the
+            <a class="underline text-blue-500 cursor-pointer"
+              href="https://raw.githubusercontent.com/Aircoookie/WLED-WebInstaller/master/LICENSE">MIT License</a>.
+          </p>
+
+          <p>ESP Web Tools is licensed under the
+            <a class="underline text-blue-500 cursor-pointer"
+              href="https://raw.githubusercontent.com/esphome/esp-web-tools/main/LICENSE">
+              Apache-2.0 license</a>.
+          </p>
+
+          <p>Powered by
+            <a class="underline text-blue-500 cursor-pointer" href="https://esphome.github.io/esp-web-tools/"
+              target="_blank">ESP Web Tools</a>
+          </p>
+
+          <p>
+            <a class="underline text-blue-500 cursor-pointer" href="https://github.com/Aircoookie/WLED"
+              target="_blank">GitHub</a>&emsp;<a class="underline text-blue-500 cursor-pointer"
+              href="https://kno.wled.ge" target="_blank">kno.wled.ge</a>
+          </p>
+
+        </div>
+
+      </footer>
+
+      <script type="text/javascript" src="script.js"></script>
 </body>
+
 </html>
