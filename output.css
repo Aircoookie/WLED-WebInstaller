@@ -852,10 +852,6 @@ select {
   background-color: rgb(252 211 77 / 0.3);
 }
 
-.bg-blue-600\/30 {
-  background-color: rgb(37 99 235 / 0.3);
-}
-
 .bg-transparent {
   background-color: transparent;
 }
@@ -871,11 +867,6 @@ select {
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
-}
-
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
 }
 
 .text-center {

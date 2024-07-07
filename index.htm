@@ -45,7 +45,8 @@
 
       <div class="flex justify-center my-4">
         <!-- add new builds here -->
-        <select style="border-radius: 25px;" id="ver" class="bg-[#0a2f65] border border-blue-700/30 px-10" onchange="resetCheckboxes();setManifest();">
+        <select style="border-radius: 25px;" id="ver" class="bg-[#0a2f65] border border-blue-700/30 px-10"
+          onchange="resetCheckboxes();setManifest();">
           <optgroup label="Beta">
             <option data-manifest="bin/beta_0_15_0-b4/manifest.json" data-ethernet="bin/beta_0_15_0-b4/manifest_e.json"
               data-audio="bin/beta_0_15_0-b4/manifest_a.json" data-test="bin/beta_0_15_0-b4/manifest_t.json">0.15.0-b4
@@ -62,11 +63,14 @@
           </optgroup>
           <optgroup label="Release">
             <option data-manifest="bin/release_0_14_4/manifest.json" data-ethernet="bin/release_0_14_4/manifest_e.json"
-              data-audio="bin/release_0_14_4/manifest_a.json" data-test="bin/beta_0_14_4/manifest_t.json">0.14.4</option>
+              data-audio="bin/release_0_14_4/manifest_a.json" data-test="bin/beta_0_14_4/manifest_t.json">0.14.4
+            </option>
             <option data-manifest="bin/release_0_14_3/manifest.json" data-ethernet="bin/release_0_14_3/manifest_e.json"
-              data-audio="bin/release_0_14_3/manifest_a.json" data-test="bin/beta_0_14_3/manifest_t.json">0.14.3</option>
+              data-audio="bin/release_0_14_3/manifest_a.json" data-test="bin/beta_0_14_3/manifest_t.json">0.14.3
+            </option>
             <option data-manifest="bin/release_0_14_2/manifest.json" data-ethernet="bin/release_0_14_2/manifest_e.json"
-              data-audio="bin/release_0_14_2/manifest_a.json" data-test="bin/beta_0_14_2/manifest_t.json">0.14.2</option>
+              data-audio="bin/release_0_14_2/manifest_a.json" data-test="bin/beta_0_14_2/manifest_t.json">0.14.2
+            </option>
             <option data-manifest="bin/release_0_14_1/manifest.json" data-ethernet="bin/release_0_14_1/manifest_e.json"
               data-audio="bin/release_0_14_1/manifest_a.json">0.14.1</option>
             <option data-manifest="bin/release_0_14_0/manifest.json" data-ethernet="bin/release_0_14_0/manifest_e.json"
@@ -98,7 +102,8 @@
 
       <div class="flex justify-center my-4">
         <esp-web-install-button id="inst" manifest="">
-          <button style="border-radius: 25px;" id="ver" class="bg-[#0a2f65] border border-blue-700/30 px-10 p-2"  slot="activate">Install</button>
+          <button style="border-radius: 25px;" id="ver" class="bg-[#0a2f65] border border-blue-700/30 px-10 p-2"
+            slot="activate">Install</button>
         </esp-web-install-button><br>
       </div>
 
