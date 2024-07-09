@@ -36,3 +36,9 @@ body {
 .radio__input:checked+.radio__label {
     background: #1e40af;
 }
+
+.disabled__label {
+    display: none;
+}
+
+

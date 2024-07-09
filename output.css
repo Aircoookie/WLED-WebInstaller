@@ -944,6 +944,10 @@ body {
   background: #1e40af;
 }
 
+.disabled__label {
+  display: none;
+}
+
 @media (min-width: 640px) {
   .sm\:mx-auto {
     margin-left: auto;
@@ -964,3 +968,5 @@ body {
     border-color: rgb(55 65 81 / var(--tw-border-opacity));
   }
 }
+
+
