@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta content='width=device-width' name='viewport'>
+  <meta name="theme-color" content="#02182B">
+  <link rel="shortcut icon" href="favicon.png">
+  <title>Install WLED</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+
+  <script type="module" src="installer/install-button.js"></script>
+
+  <link href="./output.css" rel="stylesheet">
+</head>
+
+<body class="text-white bg-[#02182B]" onload="checkSupported()">
+
+  <!-- WLED Logo Image -->
+  <div class="flex justify-center my-10">
+    <img class="w-[700px]" src="https://kno.wled.ge/assets/images/ui/headers/wled_logo_akemi.png">
+  </div>
+
+
+  <!-- Main section -->
+  <section class="block">
+
+    <h2 class="text-center font-bold text-2xl">Welcome to the WLED web installer!</h2>
+
+    <div id="flasher">
+
+      <div class="flex justify-center my-4">
+        <div class="space-y-2">
+          <p>1. Plug in your ESP to a USB port. We will install WLED <span id="verstr">0.12.0</span> to it.</p>
+          <p>2. Hit "Install" and select the correct COM port. <a onclick="showSerialHelp()"
+              class="underline text-blue-500 cursor-pointer">No device found?</a>
+          </p>
+          <p id="coms"></p>
+          <p>3. Get WLED installed and connected in less than 3 minutes!</p>
+        </div>
+      </div>
+
+      <div class="flex justify-center my-4">
+        <!-- add new builds here -->
+        <select style="border-radius: 25px;" id="ver" class="bg-[#0a2f65] border border-blue-700/30 px-10" onchange="setManifest()">
+          <optgroup label="Beta">
+            <option data-manifest="bin/beta_0_14_0-b4/manifest.json" data-ethernet="bin/beta_0_14_0-b4/manifest_e.json">
+              0.14.0-b4</option>
+            <option data-manifest="bin-v2/beta_0_14_0-b3/manifest.json"
+              data-ethernet="bin-v2/beta_0_14_0-b3/manifest_e.json">0.14.0-b3</option>
+            <option data-manifest="bin-v2/beta_0_14_0-b1/manifest.json"
+              data-ethernet="bin-v2/beta_0_14_0-b1/manifest_e.json">0.14.0-b1</option>
+          </optgroup>
+          <optgroup label="Release">
+            <option data-manifest="bin-v2/release_0_13_3/manifest.json"
+              data-ethernet="bin-v2/release_0_13_3/manifest_e.json">0.13.3</option>
+            <option data-manifest="bin-v2/release_0_13_1/manifest.json"
+              data-ethernet="bin-v2/release_0_13_1/manifest_e.json">0.13.1</option>
+          </optgroup>
+          <optgroup label="Sound Reactive">
+            <option data-manifest="bin-v2/sr_0_13_4/manifest.json" data-ethernet="bin-v2/sr_0_13_4/manifest_e.json">
+              0.13.4</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="flex justify-center my-4">
+        <div id="eth">
+          <input class="rounded bg-transparent border border-gray-300" type="checkbox" id="ethernet" name="ethernet"
+            onchange="setManifest()">
+          <label for="ethernet">My board has Ethernet</label><br>
+        </div>
+      </div>
+
+      <div class="flex justify-center my-4">
+        <esp-web-install-button id="inst" manifest="">
+          <button style="border-radius: 25px;" class="bg-[#0a2f65] border border-blue-700/30 px-10 p-2"  
+            slot="activate">Install</button>
+        </esp-web-install-button>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+
+    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
+
+    <div class="text-center space-y-3">
+      <p>This project is licensed under the 
+        <a class="underline text-blue-500 cursor-pointer"
+          href="https://raw.githubusercontent.com/Aircoookie/WLED-WebInstaller/master/LICENSE">MIT License</a>.
+      </p>
+
+      <p>ESP Web Tools is licensed under the
+        <a class="underline text-blue-500 cursor-pointer"
+          href="https://raw.githubusercontent.com/esphome/esp-web-tools/main/LICENSE">
+          Apache-2.0 license</a>.
+      </p>
+
+      <p>Powered by
+        <a class="underline text-blue-500 cursor-pointer" href="https://esphome.github.io/esp-web-tools/"
+          target="_blank">ESP Web Tools</a>
+      </p>
+
+      <p>
+        <a class="underline text-blue-500 cursor-pointer" href="https://github.com/Aircoookie/WLED"
+          target="_blank">GitHub</a>&emsp;<a class="underline text-blue-500 cursor-pointer" href="https://kno.wled.ge"
+          target="_blank">kno.wled.ge</a>
+      </p>
+
+    </div>
+
+  </footer>
+
+  <script>
+    function setManifest() {
+      var sel = document.getElementById('ver');
+      var opt = sel.options[sel.selectedIndex];
+      var m = opt.dataset.manifest;
+      var me = opt.dataset.ethernet;
+      document.getElementById('eth').style.display = me ? "block" : "none";
+      if (me && document.getElementById('ethernet').checked) {
+        m = me;
+      }
+      document.getElementById('inst').setAttribute('manifest', m);
+      document.getElementById('verstr').textContent = opt.text;
+    }
+
+    function checkSupported() {
+      if (document.getElementById('inst').hasAttribute('install-unsupported')) unsupported();
+      else setManifest();
+    }
+
+    function unsupported() {
+      document.getElementById('flasher').innerHTML = "Sorry, your browser is not yet supported!<br>Please try on Desktop Chrome or Edge.<br>"
+    }
+
+    function showSerialHelp() {
+
+      if (document.getElementById('coms').innerHTML) {
+        document.getElementById('coms').innerHTML = "";
+      }
+
+      else {
+        document.getElementById('coms').innerHTML = ` 
+        <div class="bg-amber-300/30 p-5 rounded-lg flex space-x-3 border border-amber-400/30">
+
+            <svg width="22" height="22" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M25.7581 7.43467C25.106 6.19623 23.3361 6.18643 22.6703 7.41757L6.71662 36.9192C6.08608 38.0852 6.93039 39.5017 8.25595 39.5017H39.7435C41.0606 39.5017 41.9056 38.1017 41.292 36.9363L25.7581 7.43467ZM20.4713 6.22838C22.0881 3.23848 26.3866 3.26227 27.9702 6.26991L43.5041 35.7716C44.9943 38.6017 42.942 42.0017 39.7435 42.0017H8.25595C5.03672 42.0017 2.98626 38.5617 4.51756 35.73L20.4713 6.22838ZM24 15C24.6904 15 25.25 15.5596 25.25 16.25V27.75C25.25 28.4404 24.6904 29 24 29C23.3096 29 22.75 28.4404 22.75 27.75V16.25C22.75 15.5596 23.3096 15 24 15ZM24 35C25.1046 35 26 34.1046 26 33C26 31.8954 25.1046 31 24 31C22.8954 31 22 31.8954 22 33C22 34.1046 22.8954 35 24 35Z"
+                fill="#fde047" />
+            </svg>
+
+            <div class="text-sm text-amber-200 space-y-1">
+              <p>You might be missing the drivers for your board.</p>
+              <p>Here are drivers for chips commonly used in ESP boards:</p>
+              <p>
+                <a class="underline text-blue-300 cursor-pointer"
+                  href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers" target="_blank">CP2102 (square
+                  chip)</a>
+              </p>
+              <p>
+                <a class="underline text-blue-300 cursor-pointer"
+                  href="https://github.com/nodemcu/nodemcu-devkit/tree/master/Drivers" target="_blank">CH34x
+                  (rectangular
+                  chip)</a>
+              </p>
+              <p>Make sure your USB cable supports data transfer.</p>
+            </div>
+          </div>`
+      }
+    }
+  </script>
+</body>
+
+</html>
