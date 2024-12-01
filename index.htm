@@ -28,6 +28,12 @@
   <!-- add new builds here -->
   <select id="ver" class="btn" onchange="resetCheckboxes();setManifest();">
     
+    <optgroup label="Pre-Release">
+      <option data-manifest="bin/release-candidate_0_15_0_RC-1/manifest.json"
+        data-ethernet="bin/release-candidate_0_15_0_RC-1/manifest_e.json"
+        data-test = "bin/release-candidate_0_15_0_RC-1/manifest_t.json"
+        >0.15.0-RC1</option>
+      </optgroup>
     <optgroup label="Beta">
       <option data-manifest="bin/beta_0_15_0-b7/manifest.json"
         data-ethernet="bin/beta_0_15_0-b7/manifest_e.json"
